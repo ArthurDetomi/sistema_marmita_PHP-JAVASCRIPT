@@ -24,10 +24,10 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background-color: #e17055;">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Marmitas Maná</b>Admin</a>
+    <a href="#" style="text-shadow: 2px 2px 2px rgba(0, 0, 0, .45);"><b>Marmitas Maná</b>Admin</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -59,8 +59,7 @@
     </form>
     <!-- /.social-auth-links -->
 
-    <a href="#">I forgot my password</a><br>
-    <a href="register.html" class="text-center">Register a new membership</a>
+    <a href="/sistemamarmita/admin/forgot">Esqueci minha senha</a><br>
 
   </div>
   <!-- /.login-box-body -->

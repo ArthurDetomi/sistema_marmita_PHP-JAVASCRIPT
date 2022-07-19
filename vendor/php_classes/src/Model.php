@@ -12,11 +12,11 @@ class Model{
         switch($method)
         {
             case "get":
-                return $this->values[$restname];
+                return (isset($this->values[$restName]))?$this->values[$restName]:NULL;
             break;
 
             case "set":
-                $this->values[$restName] = $args;
+                $this->values[$restName] = $args[0];
             break;
             
         }
