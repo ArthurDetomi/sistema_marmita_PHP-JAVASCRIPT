@@ -209,7 +209,7 @@ desired effect
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="/sistemamarmita/admin/logout" class="btn btn-default btn-flat">Desconectar</a>
                 </div>
               </li>
             </ul>
