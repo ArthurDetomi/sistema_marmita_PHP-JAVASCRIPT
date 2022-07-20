@@ -3,9 +3,9 @@ namespace Sistema;
 use Rain\Tpl;
 class Mailer{
 
-    const USERNAME = "arthurdetomi@gmail.com";
-	const PASSWORD = "deczuzmswpsjqxyf";
-	const NAME_FROM = "Marmitas Maná";
+    const USERNAME = "";
+	const PASSWORD = "";
+	const NAME_FROM = "Marmitas Mana";
 
 	private $mail;
 
