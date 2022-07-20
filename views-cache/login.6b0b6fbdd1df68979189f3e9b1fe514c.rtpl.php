@@ -24,11 +24,18 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition login-page" style="background-color: #e17055;">
+<body class="hold-transition login-page" style="background-color: #F5EDDC;">
+  
 <div class="login-box">
   <div class="login-logo">
     <a href="#" style="text-shadow: 2px 2px 2px rgba(0, 0, 0, .45);"><b>Marmitas Maná</b>Admin</a>
   </div>
+  <?php if( $loginError != '' ){ ?>
+  <div class="alert alert-danger">
+      <?php echo htmlspecialchars( $loginError, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+  </div>
+  <?php } ?>
+
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>

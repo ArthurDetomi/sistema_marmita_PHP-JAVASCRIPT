@@ -2,10 +2,12 @@
 namespace Sistema\Model;
 use \Sistema\DB\Sql;
 use \Sistema\Model;
+use \Sistema\Mailer;
 
 class User extends Model{
 
     const SESSION = "User";
+    const ERROR = "UserError";
 
     public static function login($login, $password)
     {   
@@ -14,7 +16,7 @@ class User extends Model{
             ":LOGIN"=>$login
         ));
         if(count($results) === 0){
-            throw new \Exception("Esse usuário não existe, verifique se digitou os dados corretamente.");
+            return NULL;
         }
         $data = $results[0];
         if(password_verify($password, $data["despassword"]) === true){
@@ -23,7 +25,7 @@ class User extends Model{
             $_SESSION[User::SESSION] = $user->getValues();
             return $user;
         }else{
-            throw new \Exception("Esse usuário não existe, verifique se digitou os dados corretamente.");
+            return NULL;
         }
     }
 
@@ -106,6 +108,103 @@ class User extends Model{
         $sql->query("CALL sp_delete_users (:iduser)",array(
             ":iduser"=>$this->getiduser()
         ));
+    }
+
+    public static function getEmailForgot($email)
+    {
+        $sql = new Sql();
+        $results = $sql->select("SELECT * FROM tb_persons a INNER JOIN tb_users b USING(idperson) WHERE a.desemail = :desemail",array(
+            ":desemail"=>$email
+        ));
+        if(count($results) === 0){
+            return NULL;
+        }else{
+            $data = $results[0];
+            $result_call = $sql->select("CALL sp_userspasswordsrecoveries_create(:iduser, :desip)",array(
+                ":iduser"=>$data["iduser"],
+                ":desip"=>$_SERVER["REMOTE_ADDR"]
+            ));
+            if(count($result_call) === 0){
+                return NULL;
+            }else{
+                $datarecovery = $result_call[0];
+                define("SECRET_IV", pack("a16", "arthursecret"));
+                define("SECRET", pack("a16", "arthursecret"));
+                $code = base64_encode(openssl_encrypt(
+                    $datarecovery["idrecovery"],
+                    "AES-128-CBC",
+                    SECRET,
+                    0,
+                    SECRET_IV
+                ));
+                $link = "localhost/sistemamarmita/admin/forgot/reset/".$code;
+                $mailer = new Mailer($data["desemail"], $data["desperson"], "Redefinir senha da Marmita Maná:\n", "forgot", array(
+                    "name"=>$data["desperson"],
+                    "link"=>$link
+                ));
+                $mailer->send();
+                return $data;
+            }
+        }
+    }
+
+    public static function validForgotDecrypt($code)
+    {
+        define("SECRET_IV", pack("a16", "arthursecret"));
+        define("SECRET", pack("a16", "arthursecret"));
+        $idrecovery = openssl_decrypt(
+            base64_decode($code),
+            "AES-128-CBC",
+            SECRET,
+            0,
+            SECRET_IV
+        );
+        $sql = new Sql();
+        
+        $results = $sql->select("SELECT * FROM tb_userspasswordsrecoveries a INNER JOIN tb_users b USING(iduser) INNER JOIN tb_persons c USING(idperson) WHERE a.idrecovery = :idrecovery and a.dtrecovery is NULL AND DATE_ADD(a.dtregister, INTERVAL 1 HOUR) >= NOW()", array(
+            ":idrecovery"=>$idrecovery
+        )); 
+
+        if(count($results) === 0){
+            return NULL;
+        }else{
+            return $results[0];
+        }
+
+    }
+
+    public static function setForgotUsed($idrecovery)
+    {
+        $sql = new Sql();
+        $sql->query("UPDATE FROM tb_userspasswordsrecoveries SET dtrecovery = NOW() WHERE idrecovery = :idrecovery",array(
+            ":idrecovery"=>$idrecovery
+        ));
+    }
+
+    public function setPassword($password)
+    {
+        $sql = new Sql();
+        $sql->query("UPDATE tb_users SET despassword = :despassword WHERE iduser = :iduser",array(
+            ":despassword"=>User::getHashPassword($password),
+            ":iduser"=>$this->getiduser()
+        ));
+    }
+
+    public static function setError($msg)
+    {
+        $_SESSION[User::ERROR] = $msg;
+    }
+
+    public static function getError()
+    {
+        $msg = (isset($_SESSION[User::ERROR]) && $_SESSION[User::ERROR]) ? $_SESSION[User::ERROR] : '';
+        User::clearError();
+        return $msg;
+    }
+
+    public static function clearError()
+    {   
+        $_SESSION[User::ERROR] = NULL;
     }
 }
 ?>
