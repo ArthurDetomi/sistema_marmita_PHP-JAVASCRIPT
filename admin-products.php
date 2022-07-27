@@ -57,7 +57,12 @@ $app->get("/admin/products/:idproduct",function($idproduct){
     ));
 });
 
-
-
+$app->get("/sistemamarmita/admin/sales",function(){
+    User::verifyLogin();
+    $page = new PageAdmin();
+    $page->setTpl("sales",array(
+        "listSales"=>[]
+    ));
+});
 
 ?>
