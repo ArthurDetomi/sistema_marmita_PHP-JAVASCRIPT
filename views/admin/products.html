@@ -3,11 +3,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Lista de Categorias
+    Lista de Produtos
   </h1>
   <ol class="breadcrumb">
     <li><a href="/sistemamarmita/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active"><a href="/sistemamarmita/admin/categories">Categorias</a></li>
+    <li class="active"><a href="/sistemamarmita/admin/products">Produtos</a></li>
   </ol>
 </section>
 
@@ -19,7 +19,7 @@
   		<div class="box box-primary">
             
             <div class="box-header">
-              <a href="/sistemamarmita/admin/categories/create" class="btn btn-success">Cadastrar Categoria</a>
+              <a href="/sistemamarmita/admin/products/create" class="btn btn-success">Cadastrar Produto</a>
             </div>
 
             <div class="box-body no-padding">
@@ -27,19 +27,22 @@
                 <thead>
                   <tr>
                     <th style="width: 10px">#</th>
-                    <th>Nome da Categoria</th>
-                    <th style="width: 240px">&nbsp;</th>
+                    <th>Nome da Produto</th>
+                    <th>Preço</th>
+                    <th>Tamanho</th>
+                    <th style="width: 140px">&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {loop="$categories"}
+                  {loop="$products"}
                   <tr>
-                    <td>{$value.idcategory}</td>
-                    <td>{$value.descategory}</td>
+                    <td>{$value.idproduct}</td>
+                    <td>{$value.desproduct}</td>
+                    <td>{$value.vlprice}</td>
+                    <td>{$value.vlsize}</td>
                     <td>
-                      <a href="/sistemamarmita/admin/categories/{$value.idcategory}/products" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Produtos</a>
-                      <a href="/sistemamarmita/admin/categories/{$value.idcategory}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                      <a href="/sistemamarmita/admin/categories/{$value.idcategory}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                      <a href="/sistemamarmita/admin/products/{$value.idproduct}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                      <a href="/sistemamarmita/admin/products/{$value.idproduct}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
                     </td>
                   </tr>
                   {/loop}
