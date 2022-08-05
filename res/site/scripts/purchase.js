@@ -1,0 +1,1 @@
+window.build = new PurchaseController();

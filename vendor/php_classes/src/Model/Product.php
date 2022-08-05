@@ -3,11 +3,12 @@ namespace Sistema\Model;
 use \Sistema\DB\Sql;
 use \Sistema\Model;
 
-class Product extends Model{
+class Product extends Model
+{
     public static function listAllProducts()
     {
         $sql = new Sql();
-        return $sql->select("SELECT * FROM tb_products ORDER BY desproduct");
+        return $sql->select("SELECT * FROM tb_products ORDER BY vlsize DESC");
     }
 
     public function saveProduct()
@@ -84,5 +85,14 @@ class Product extends Model{
         }
     }
 
+    public static function checkList($list)
+    {   
+        foreach($list as &$row){
+            $p = new Product();
+            $p->setData($row);
+            $row = $p->getValues();
+        }
+        return $list;
+    }
 }
 ?>

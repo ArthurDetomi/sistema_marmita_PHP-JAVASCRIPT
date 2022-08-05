@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"><!--Bootstrap-->
+        <link rel="stylesheet" href="lib/owl.carousel2/dist/assets/owl.carousel.min.css"><!--Carrousel-->
+        <link rel="stylesheet" href="lib/owl.carousel2/dist/assets/owl.theme.default.min.css"><!--Carrousel-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"><!-- Font Awesome -->
+
+        <title>Marmitas Adelina</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <header><!--Cabeçalho-->
+            <div class="header-color">
+                <div class="container">
+                    <div id="area-logo" class="row text-center">
+                        <h1>Marmitas Maná</h1>
+                        <img id="logotipo" src="img/logo_marmita.png" alt="Logo Marmitas Maná">
+                    </div>
+                </div>
+            </div>
+        </header><!--Fim Cabeçalho-->
+
+        <section><!--Area de Conteudo-->
+            <div id="area-marmitas" class="container"><!--Inicio area-marmita-->
+                <div class="row text-center">
+                    <h2>Marmitas</h2>
+                    <hr>
+                </div>
+
+                <div class="row produtos">
+                    <div class="produto col-md-4 text-center"><!--Produto-->
+                        <div class="col-md-10">
+                            <img class="img-thumbnail" src="img/marmita.jpg" alt="marmita">
+                            <h3>Marmita P</h3>
+                            <ins>R$ 10,00</ins>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="botoes">
+                                <ul class="list-unstyled pull-right">
+                                    <li>
+                                        <input type="button" class="plus btn btn-danger" value="+">       
+                                    </li>
+                                    <li>
+                                        <input type="number" size="4" class="qtd-text" title= min="0" step="1">
+                                    </li> 
+                                    <li>
+                                        <input type="button" class="minus btn btn-danger" value="-">       
+                                    </li>   
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!--Fim Produto-->
+
+                    <div class="produto col-md-4 text-center"><!--Produto-->
+                        <div class="col-md-10">
+                            <img class="img-thumbnail" src="img/marmita.jpg" alt="marmita">
+                            <h3>Marmita P</h3>
+                            <ins>R$ 10,00</ins>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="botoes">
+                                <ul class="list-unstyled pull-right">
+                                    <li>
+                                        <input type="button" class="plus btn btn-danger" value="+">       
+                                    </li>
+                                    <li>
+                                        <input type="number" size="4" class="qtd-text" title= min="0" step="1">
+                                    </li> 
+                                    <li>
+                                        <input type="button" class="minus btn btn-danger" value="-">       
+                                    </li>   
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!--Fim Produto-->
+
+                    <div class="produto col-md-4 text-center"><!--Produto-->
+                        <div class="col-md-10">
+                            <img class="img-thumbnail" src="img/marmita.jpg" alt="marmita">
+                            <h3>Marmita P</h3>
+                            <ins>R$ 10,00</ins>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="botoes">
+                                <ul class="list-unstyled pull-right">
+                                    <li>
+                                        <input type="button" class="plus btn btn-danger" value="+">       
+                                    </li>
+                                    <li>
+                                        <input type="number" size="4" class="qtd-text" title= min="0" step="1">
+                                    </li> 
+                                    <li>
+                                        <input type="button" class="minus btn btn-danger" value="-">       
+                                    </li>   
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!--Fim Produto-->
+                 </div><!--Fim area-marmita-->
+
+                 <div id="valor-total" class="container"><!--Valor Total-->
+                    <div class="row text-center">
+                        <div class="row text-center payment">
+                            <h2>Valor Total - Soma</h2>
+                            <hr>
+                            <ins>R$100,00</ins>
+                        </div>
+                    </div>
+                 </div><!--Fim Valor Total-->
+
+                 <div id="forma-pagamentos" class="container"><!--Container Pagamentos-->
+                    <div class="row">
+                        <div class="row text-center payment">
+                            <h2>Formas de Pagamento</h2>
+                            <hr>
+                        </div>
+                        <ul class="nav nav-pills botoes-pagamento">
+                            <li role="presentation"><button class="btn btn-primary btn-lg botao">Dinheiro</button></li>
+                            <li role="presentation"><button class="btn btn-primary btn-lg botao">Cartão</button></li>
+                            <li role="presentation"><button class="btn btn-primary btn-lg botao">Pix</button></li>
+                        </ul>
+                    </div>
+                 </div><!--Fim Container Pagamentos-->
+
+                 <div id="forma-dinheiro" class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row text-right">
+                                <h3>Valor Recebido:</h3>
+                                <input type="number" name="vlrecebido" id="vlrecebido" placeholder="R$">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="row text-left">
+                                <h3>Troco:</h3>
+                                <ins id="troco">R$</ins>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <button class="btn btn-danger">Calcular Troco</button>
+                        </div>
+                    </div>
+                 </div>
+                 <div id="cadastro" class="container">
+                    <div class="row text-center">
+                        <button class="btn btn-success btn-lg">Cadastrar Venda</button>
+                    </div>
+                 </div>
+
+                 
+        </section>
+
+        <footer>
+            <div class="row cinza-claro">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 text-center"> 
+                            <img src="img/logo_marmita.png" alt="">
+                        </div>
+
+                        <div class="col-md-4 pull-left">
+                            <h3>Links</h3>
+                            <ul class="list-unstyled links">
+                                <li>
+                                    <a href="#"><i class="fa fa-angle-right"></i>Contato do Administrador</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-angle-right"></i>Administração do Sistema</a>
+                                </li>
+                                <li>
+                                    <p><i class="fa fa-user"></i><a href="">Contato Administrador do Sistema</a></p>
+                                    <p><i class="fa fa-phone telefone"></i>(32) 99939 - 0279</a></p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-4 pull-left">
+                            <h3>Informações</h3>
+                            <ul class="list-unstyled links">
+                                <li>
+                                    <i class="fa fa-info"></i>Sistema criado para se ter um controle sobre as vendas, com o valor do troco e registrando vendas, cadastrando novos produtos e categorias. 
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-angle-right"></i>Marmitas Maná - Adelina</a>
+                                </li>
+                                <li>
+                                    <p class="contato-dono"><i class="fa fa-user"></i>Contato da Empresa - <i class="fa fa-phone"></i>(32) 9841 - 5337</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row cinza-escuro">
+                <div class="container">
+                    <div class="row">
+                        <p class="pull-left text-footer">Copyright © Marmitas Maná 2022. Todos os direitos reservados.</p>
+                        <p class="pull-right text-footer text-red">Criado por Arthur Detomi</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+       
+        <script src="lib/jquery/jquery.min.js"></script><!--JQuery-->
+        <script src="lib/owl.carousel2/dist/owl.carousel.min.js"></script><!--Carrousel-->
+        <script src="lib/bootstrap/js/bootstrap.min.js"></script><!--Bootstrap--> 
+        <!--
+        <script>
+            $(document).ready(function(){
+                 $("").owlCarousel({
+                     loop:true,
+                     margin:10,
+                     nav:true,
+                     navText: ["anterior","proximo"],
+                     responsive:{
+                         0:{
+                             items:1
+                         },
+                         480:{
+                             items:3
+                         },1000:{
+                             items:3
+                         },
+                     }
+                 });
+            });
+         </script> 
+         -->      
+    </body>
+</html>

@@ -1,10 +1,25 @@
 <?php if(!class_exists('Rain\Tpl')){exit;}?><!DOCTYPE html>
-<html lang="pt-br">
+<html>
     <head>
-        <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Sistema Marmita</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/sistemamarmita/res/site/lib/bootstrap/css/bootstrap.min.css"><!--Bootstrap-->
+        <link rel="stylesheet" href="/sistemamarmita/res/site/lib/owl.carousel2/dist/assets/owl.carousel.min.css"><!--Carrousel-->
+        <link rel="stylesheet" href="/sistemamarmita/res/site/lib/owl.carousel2/dist/assets/owl.theme.default.min.css"><!--Carrousel-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"><!-- Font Awesome -->
+
+        <title>Marmitas Adelina</title>
+        <link rel="stylesheet" href="/sistemamarmita/res/site/css/style.css">
     </head>
     <body>
-        <h1>Aqui é o CAbeçalho !!!!</h1>
+        <header><!--Cabeçalho-->
+            <div class="header-color">
+                <div class="container">
+                    <div id="area-logo" class="row text-center">
+                        <h1>Marmitas Maná</h1>
+                        <img id="logotipo" src="/sistemamarmita/res/site/img/logo_marmita.png" alt="Logo Marmitas Maná">
+                    </div>
+                </div>
+            </div>
+        </header><!--Fim Cabeçalho-->
    

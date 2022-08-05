@@ -1,9 +1,16 @@
 <?php
 use \Sistema\Page;
+use \Sistema\Model\Product;
+use \Sistema\Model\User;
 
 $app->get("/",function(){
     $page = new Page();
-    $page->setTpl("index");
+    $listProducts = new Product();
+    $page->setTpl("index",array(
+        "products"=>$listProducts::checkList($listProducts::listAllProducts())
+    ));
 });
+
+
 
 ?>

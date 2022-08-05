@@ -1,0 +1,199 @@
+@font-face {
+    font-family:"OpenSans";
+    src: url("../fonts/Open_Sans/OpenSans-Regular.ttf");
+    font-size: 1em;
+}
+@font-face {
+    font-family: "OpenSans-Light";
+    src: url("../fonts/Open_Sans/OpenSans-Light.ttf");
+    font-size: 1em;
+}
+/*Cabeçalho*/
+header{
+    background-color: #D61C4E;
+    height: 150px;
+}
+
+header #area-logo h1{
+    color: #FFF;
+    font-family: "OpenSans";
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 4em;
+    font-style: italic;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, .45);
+    text-transform: uppercase;
+}
+header #logotipo{
+    height: 146px;
+    width: 146px;
+    position: relative;
+    bottom: 20px;
+}
+/*Seção*/
+/*Area-marmitas*/
+#area-marmitas{
+    margin-top: 60px;
+}
+#area-marmitas h2{
+    font-family: "OpenSans-Light";
+    font-size: 48px;
+    color: #293462;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+#area-marmitas hr{
+    border: #FFF80A solid 2px;
+    width: 200px;
+    margin: 0 auto;
+}
+#area-marmitas .produtos{
+    margin-top: 25px;
+}
+#area-marmitas .produtos h3{
+    color: #d63031;
+    font-size: 28px;
+    font-family: "OpenSans";
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 4px;
+}
+#area-marmitas .produtos img{
+    height: auto;
+    width: 100%;
+    border: 1px solid red;
+}
+#area-marmitas .produtos ins{
+    text-decoration: none;
+    font-size: 19px;
+    font-family: "OpenSans";
+    font-weight: bold;
+    color: #000;
+}
+#area-marmitas .qtd-text{
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+}
+#area-marmitas .botoes{
+    position: relative;
+    margin-top: 80px;
+    right: 20px;
+}
+
+#area-marmitas .payment h2{
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+#area-marmitas .payment hr{
+    border-color: #000;
+}
+/*Valor-Total*/
+#valor-total ins{
+    font-family: "OpenSans";
+    text-decoration: none;
+    font-weight: 200;
+    width: 200px;
+    margin: 30px auto;
+    padding: 10px;
+    border: 2px solid #000;
+    display: block;
+    font-size: 2em;
+}
+#valor-total ins:hover{
+    font-weight: bold;
+}
+/*Forma-pagamentos*/
+#forma-pagamentos .botoes-pagamento{
+    width: 400px;
+    margin: 30px auto;
+}
+#forma-pagamentos .botoes-pagamento li{
+    margin: 0 10px;
+}
+#forma-pagamentos .botao{
+    width: 100px;
+}
+#forma-dinheiro{
+    margin-bottom: 20px;
+}
+#forma-dinheiro .row{
+    margin: 0 10px;
+    margin-bottom: 10px;
+}
+#forma-dinheiro h3{
+    font-family: "OpenSans";
+    text-transform: uppercase;
+    display: inline-block;
+    color: #293462;
+}
+#forma-dinheiro input{
+    font-family: "OpenSans";
+    text-decoration: none;
+    font-weight: 200;
+    width: 100px;
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid #000;
+    font-size: 1.5em;
+}
+#troco{
+    font-family: "OpenSans";
+    text-decoration: none;
+    font-weight: 200;
+    width: 100px;
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid #000;
+    font-size: 1.5em;
+}
+/*Rodapé*/
+footer{
+    margin-top: 50px;
+}
+footer .cinza-claro{
+    background: #171F26;
+    height: 200px;
+    width: 100%;
+}
+footer .cinza-claro h3{
+    font-size: 16px;
+    color: #FFF;
+    font-family: "OpenSans";
+    text-transform: uppercase;
+    padding-bottom: 17px;
+    border-bottom: 1px solid #242D37;
+}
+footer .cinza-claro .links{
+    font-family: "OpenSans";
+    font-size: 14px;
+    color: #fff;
+    margin-top: 20px;
+}
+footer .cinza-claro .links .contato-dono{
+    margin-top: 5px;
+}
+footer .cinza-claro .links a,footer .cinza-claro .links i{
+    font-size: 14px;
+    color: #FFF;
+    text-decoration: none;
+}
+footer .cinza-claro .links a i,footer .cinza-claro .links p i, footer .cinza-claro .links i{
+    margin-right: 5px;
+}
+
+footer .cinza-escuro{
+    width: 100%;
+    height: 60px;
+    background-color: #11171D;
+}
+footer .cinza-escuro .text-footer{
+    font-family: "OpenSans";
+    margin-top: 20px;
+    color: #666666;
+}
+footer .cinza-escuro .text-red{
+    color: #D61C4E;
+    font-weight: bold;
+}
