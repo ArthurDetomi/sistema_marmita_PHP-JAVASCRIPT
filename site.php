@@ -11,6 +11,10 @@ $app->get("/",function(){
     ));
 });
 
+$app->post("/",function(){
+    var_dump($_POST);
+    exit;
+});
 
 
 ?>

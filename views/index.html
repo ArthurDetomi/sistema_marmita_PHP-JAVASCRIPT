@@ -5,13 +5,13 @@
             <hr>
         </div>
         
-        <div class="row produtos">
+        <div id="area-produtos" class="row produtos">
             {loop="$products"}
             <div class="produto col-md-4 text-center"><!--Produto-->
                 <div class="col-md-10">
                     <img class="img-thumbnail" src="{$value.desphoto}" alt="marmita">
                     <h3>{$value.desproduct} {$value.vlsize}</h3>
-                    <ins>{$value.vlprice}</ins>
+                    <ins id="price-{$value.idproduct}" class="price-product">{$value.vlprice}</ins>
                 </div>
                 <div class="col-md-2">
                     <div class="botoes">
@@ -20,7 +20,7 @@
                                 <input id="plus-{$value.idproduct}" type="button" class="btn-plus btn btn-danger" value="+">       
                             </li>
                             <li>
-                                <input id="-{$value.idproduct}" type="number number-qtd" size="4" class="qtd-text" title="Qty" value="0" step="1" min="0">
+                                <input id="qtd-{$value.idproduct}" type="number" size="4" class="qtd-text" title="Qty" value="0" step="1" min="0">
                             </li> 
                             <li>
                                 <input id="minus-{$value.idproduct}" type="button" class="btn-minus btn btn-danger" value="-">       
@@ -37,7 +37,7 @@
                 <div class="row text-center payment">
                     <h2>Valor Total - Soma</h2>
                     <hr>
-                    <ins id="valor-total">R$100,00</ins>
+                    <ins id="soma-total">0</ins>
                 </div>
             </div>
          </div><!--Fim Valor Total-->
@@ -49,9 +49,17 @@
                     <hr>
                 </div>
                 <ul class="nav nav-pills botoes-pagamento">
-                    <li role="presentation"><button class="btn btn-primary btn-lg botao">Dinheiro</button></li>
-                    <li role="presentation"><button class="btn btn-primary btn-lg botao">Cartão</button></li>
-                    <li role="presentation"><button class="btn btn-primary btn-lg botao">Pix</button></li>
+                    <li role="presentation">
+                        <button id="dinheiro" type="button" class="btn btn-primary btn-lg botao">Dinheiro</button>
+                    </li>
+
+                    <li role="presentation">
+                        <button type="button" id="cartao" class="btn btn-primary btn-lg botao">Cartão</button>
+                    </li>
+
+                    <li role="presentation">
+                        <button type="button" id="pix" class="btn btn-primary btn-lg botao">Pix</button>
+                    </li>
                 </ul>
             </div>
          </div><!--Fim Container Pagamentos-->
@@ -61,7 +69,7 @@
                 <div class="col-md-6">
                     <div class="row text-right">
                         <h3>Valor Recebido:</h3>
-                        <input type="number" name="vlrecebido" id="vlrecebido" placeholder="R$">
+                        <input id="vlrecebido" type="number" name="vlrecebido"  value="" placeholder="R$">
                     </div>
                 </div>
 
@@ -75,14 +83,16 @@
 
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <button class="btn btn-danger">Calcular Troco</button>
+                    <button id="botao-troco" type="button" class="btn btn-danger">Calcular Troco</button>
                 </div>
             </div>
          </div>
          
          <div id="cadastro" class="container">
             <div class="row text-center">
-                <button class="btn btn-success btn-lg">Cadastrar Venda</button>
+                <button id="cadastrar-venda" type="submit" class="btn btn-success btn-lg" >Cadastrar Venda</button>
             </div>
          </div>
+
+        
 </section><!--Fim section-->

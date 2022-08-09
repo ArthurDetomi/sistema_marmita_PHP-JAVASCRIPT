@@ -49,6 +49,7 @@
             </div>
         </footer>
         
+        <script src="/sistemamarmita/res/site/scripts/classes/Utils.js"></script>
         <script src="/sistemamarmita/res/site/scripts/controller/PurchaseController.js"></script>
         <script src="/sistemamarmita/res/site/scripts/purchase.js"></script>
         <script src="/sistemamarmita/res/site/lib/jquery/jquery.min.js"></script><!--JQuery-->
