@@ -4,9 +4,11 @@ class PurchaseController{
         this._valueTotal = document.getElementById("soma-total");
         this._valueReceived = document.getElementById("vlrecebido");
         this._valueThing = document.getElementById("troco");
+
         this._lastButton = 0;
         this._listIDProducts = [];
-        this.initialize();  
+        this.initialize(); 
+        this.chargeSession(); 
     }
 
     initialize()
@@ -14,7 +16,6 @@ class PurchaseController{
         this.initButtonsEvents();
     }
     //metodos get
-
     get lastButton()
     {
         return this._lastButton;
@@ -40,17 +41,17 @@ class PurchaseController{
         return Utils.formatToFloat(this._valueThing.innerHTML);
     }
     //metodos set
-    set valueTotal(value)
+    set valueTotal(value = 0)
     {
         this._valueTotal.innerHTML = value;
     }
 
-    set valueReceived(value)
+    set valueReceived(value = 0)
     {
         this._valueReceived.value = value;
     }
 
-    set valueThing(value)
+    set valueThing(value = 0)
     {
         this._valueThing.innerHTML = value;
     }
@@ -101,20 +102,9 @@ class PurchaseController{
         let buttonSubmit = document.getElementById("cadastrar-venda");
 
         buttonSubmit.addEventListener("click", event=>{
-            let valuesForPhp = {
-                "formapagamento":this.lastButton,
-                "listaProdutos":this._listIDProducts,
-            };
-            let dados = JSON.stringify(valuesForPhp);
-            location.reload();
+            
         });
 
-    }
-
-    removeLast(id)
-    {
-        let last = document.getElementById(id);
-        last.classList.remove("active");
     }
 
     execButton(btn)
@@ -124,27 +114,6 @@ class PurchaseController{
 
 
         this.alterQuant(op, id);
-    }
-
-    addListProducts(id, qtd)
-    {
-        if(this._listIDProducts.length > 0){
-            let existe = false;
-            for(let i = 0; i < this._listIDProducts.length; i++){
-                if(this._listIDProducts[i].idproduct == id){
-
-                    this._listIDProducts[i].quantidade = qtd;
-                    existe = true;
-
-                }
-            }
-            if(!existe) this._listIDProducts.push({"idproduct":id,"quantidade":qtd});
-
-        }else{
-
-            this._listIDProducts.push({"idproduct":id,"quantidade":qtd});
-
-        }
     }
 
     alterQuant(op, id)
@@ -164,11 +133,14 @@ class PurchaseController{
 
             });
 
+            //window.location.href = "/sistemamarmita/plus";
+
         }else if(op == "minus"){
 
             qtd.forEach(qtd =>{
                 let qtdID = this.returnID(qtd.id);
                 if(qtd.value > 0){
+
                     let cont = qtd.value;
                     if(qtdID == id){
                         cont--;
@@ -179,6 +151,8 @@ class PurchaseController{
                 }
 
             });
+
+            //window.location.href="/sistemamarmita/minus";
         }
     }
 
@@ -224,5 +198,100 @@ class PurchaseController{
             element.addEventListener(event, fn, false);
         });
     }
+
+    removeLast(id)
+    {
+        let last = document.getElementById(id);
+        last.classList.remove("active");
+    }
+    //Inicio Metodos de Sessão ------------------------------------>
+    addListProducts(id, qtd)
+    {
+        if(this._listIDProducts.length > 0){
+            let existe = false;
+            for(let i = 0; i < this._listIDProducts.length; i++){
+
+                if(this._listIDProducts[i].idproduct == id){
+
+                    this._listIDProducts[i].quantidade = qtd;
+                    existe = true;
+
+                }
+            }
+            if(!existe) this._listIDProducts.push({"idproduct":id,"quantidade":qtd});
+
+        }else{
+
+            this._listIDProducts.push({"idproduct":id,"quantidade":qtd});
+
+        }
+        
+        this.insertForSession();
+        
+    }
+
+    insertForSession()
+    {
+        let dataProducts = [];
+        
+        if(sessionStorage.getItem("products")){
+            
+            let json = JSON.parse(sessionStorage.getItem("products"));
+
+           
+        }
+        dataProducts.push(this._listIDProducts); 
+        sessionStorage.setItem("products", JSON.stringify(dataProducts));
+
+    }
+
+    chargeSession()
+    {
+        if(sessionStorage.getItem("products")){
+
+            let dataProducts = JSON.parse(sessionStorage.getItem("products"));
+    
+            let qtd = document.querySelectorAll("#area-produtos > .produto [type=number]");
+
+            dataProducts = dataProducts[0];
+            
+            qtd.forEach(qtd=>{
+
+                for(let i = 0; i < dataProducts.length; i++){
+
+                    if(dataProducts[i].idproduct){
+
+                        this.addListProducts(dataProducts[i].idproduct, dataProducts[i].quantidade);
+
+                    }
+                }   
+                
+                for(let i = 0; i < dataProducts.length; i++){
+
+                    if(this.returnID(qtd.id) == dataProducts[i].idproduct){
+
+                        qtd.value = dataProducts[i].quantidade;
+                        this.setCalcValueTotalSession(this.returnID(qtd.id), dataProducts[i].quantidade);
+
+                    }
+                }   
+
+            });
+        }
+    }
+
+    setCalcValueTotalSession(id, qtd)
+    {
+        let price = document.querySelector(`#price-${id}`);
+
+        let operation = parseFloat(qtd) * parseFloat(price.innerHTML);
+
+        if(this.valueTotal > 0) operation = parseFloat(operation) + Utils.formatToFloat(this.valueTotal);
+
+        this.valueTotal = Utils.formatPrice(operation);  
+            
+    }
+    //fim metodos de sessão -------------------->
+    
 
 }

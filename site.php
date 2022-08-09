@@ -3,6 +3,7 @@ use \Sistema\Page;
 use \Sistema\Model\Product;
 use \Sistema\Model\User;
 
+
 $app->get("/",function(){
     $page = new Page();
     $listProducts = new Product();
@@ -11,8 +12,14 @@ $app->get("/",function(){
     ));
 });
 
-$app->post("/",function(){
-    var_dump($_POST);
+$app->get("/plus",function(){
+    header("Location: /sistemamarmita/");
+    exit;
+});
+
+$app->get("/minus",function(){
+
+    header("Location: /sistemamarmita/");
     exit;
 });
 

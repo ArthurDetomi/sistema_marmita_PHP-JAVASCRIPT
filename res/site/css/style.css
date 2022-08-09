@@ -61,7 +61,6 @@ header #logotipo{
 #area-marmitas .produtos img{
     height: auto;
     width: 100%;
-    border: 1px solid red;
 }
 #area-marmitas .produtos ins{
     text-decoration: none;
@@ -199,3 +198,16 @@ footer .cinza-escuro .text-red{
 }
 
 
+input:disabled{
+    background-color: #fff;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}

@@ -6,6 +6,8 @@
         </div>
         
         <div id="area-produtos" class="row produtos">
+            
+
             <?php $counter1=-1;  if( isset($products) && ( is_array($products) || $products instanceof Traversable ) && sizeof($products) ) foreach( $products as $key1 => $value1 ){ $counter1++; ?>
             <div class="produto col-md-4 text-center"><!--Produto-->
                 <div class="col-md-10">
@@ -17,10 +19,10 @@
                     <div class="botoes">
                         <ul class="botoes-js list-unstyled pull-right">
                             <li>
-                                <input id="plus-<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" type="button" class="btn-plus btn btn-danger" value="+">       
+                                <input id="plus-<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" type="button" class="btn-plus btn btn-danger" value="+"> 
                             </li>
                             <li>
-                                <input id="qtd-<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" type="number" size="4" class="qtd-text" title="Qty" value="0" step="1" min="0">
+                                <input id="qtd-<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" type="number" size="4" class="qtd-text" title="quantidade" value="0" step="1" min="0" disabled>
                             </li> 
                             <li>
                                 <input id="minus-<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" type="button" class="btn-minus btn btn-danger" value="-">       
@@ -89,10 +91,13 @@
          </div>
          
          <div id="cadastro" class="container">
-            <div class="row text-center">
-                <button id="cadastrar-venda" type="submit" class="btn btn-success btn-lg" >Cadastrar Venda</button>
+            <div id="form-cadastro-venda" class="row text-center">
+               
+                    <button id="cadastrar-venda" type="submit"  class="btn btn-success btn-lg" >Cadastrar Venda</button>
+                    
+                
             </div>
          </div>
-
+        
         
 </section><!--Fim section-->
