@@ -24,6 +24,7 @@
                   <tr>
                     <th style="width: 10px">#</th>
                     <th>Descrição da venda</th>
+                    <th>Forma de Pagamento</th>
                     <th>Data/Hora</th>
                     <th>Preço</th>
                     <th style="width: 140px">&nbsp;</th>
@@ -33,9 +34,10 @@
                   {loop="$listSales"}
                   <tr>
                     <td>{$value.idvenda}</td>
-                    <td>{$value.describeVenda}</td>
+                    <td>{function="formatDescription($value.describeVenda)"}</td>
+                    <td>{$value.forma_pagamento}</td>
                     <td>{$value.dt_register}</td>
-                    <td>{$value.vltotal}</td/>
+                    <td>R$ {$value.vltotal}</td/>
                     <td>
                       <a href="/sistemamarmita/admin/sales/{$value.idvenda}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
                       <a href="/sistemamarmita/admin/sales/{$value.idvenda}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>

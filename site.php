@@ -3,12 +3,11 @@ use \Sistema\Page;
 use \Sistema\Model\Product;
 use \Sistema\Model\User;
 use \Sistema\Model\Purchase;
-require_once("functions.php");
 
 
 $app->post("/",function(){
     if(isset($_POST["json"]) == TRUE && isset($_POST["payment"]) == TRUE){
-        
+
         $purchase = new Purchase();
         $purchase->getListProducts($_POST["json"]);
         $purchase->setPaymentMethod($_POST["payment"]);
