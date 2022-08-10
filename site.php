@@ -2,7 +2,24 @@
 use \Sistema\Page;
 use \Sistema\Model\Product;
 use \Sistema\Model\User;
+use \Sistema\Model\Purchase;
+require_once("functions.php");
 
+
+$app->post("/",function(){
+    if(isset($_POST["json"]) == TRUE && isset($_POST["payment"]) == TRUE){
+        
+        $purchase = new Purchase();
+        $purchase->getListProducts($_POST["json"]);
+        $purchase->setPaymentMethod($_POST["payment"]);
+        $purchase->registerSale(); //registra a venda
+
+    }
+    
+    header("Location: /sistemamarmita/");
+    exit;
+
+});
 
 $app->get("/",function(){
     $page = new Page();
@@ -11,17 +28,18 @@ $app->get("/",function(){
         "products"=>$listProducts::checkList($listProducts::listAllProducts())
     ));
 });
-
-$app->get("/plus",function(){
+/*
+$app->get("/:idproduct/:quantity/plus",function($idproduct, $quantity){
+    setListPurchase($idproduct, $quantity);
     header("Location: /sistemamarmita/");
     exit;
 });
 
-$app->get("/minus",function(){
-
+$app->get("/:idproduct/minus",function($idproduct){
+    setListPurchase($idproduct, $quantity);
     header("Location: /sistemamarmita/");
     exit;
 });
-
+*/
 
 ?>

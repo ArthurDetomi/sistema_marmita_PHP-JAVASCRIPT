@@ -91,11 +91,11 @@
          </div>
          
          <div id="cadastro" class="container">
-            <div id="form-cadastro-venda" class="row text-center">
-               
+            <div class="row text-center">
+                <form action="/sistemamarmita/" method="post">
+                    <span id="form-cadastro-venda"></span>
                     <button id="cadastrar-venda" type="submit"  class="btn btn-success btn-lg" >Cadastrar Venda</button>
-                    
-                
+                </form>    
             </div>
          </div>
         

@@ -94,5 +94,6 @@ class Product extends Model
         }
         return $list;
     }
+
 }
 ?>

@@ -198,6 +198,12 @@ footer .cinza-escuro .text-red{
 }
 
 
+
+
+.none{
+    display: none;
+}
+
 input:disabled{
     background-color: #fff;
 }

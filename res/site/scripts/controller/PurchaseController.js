@@ -4,21 +4,61 @@ class PurchaseController{
         this._valueTotal = document.getElementById("soma-total");
         this._valueReceived = document.getElementById("vlrecebido");
         this._valueThing = document.getElementById("troco");
+        this._formVenda = document.getElementById("form-cadastro-venda");
+        
 
+
+        this._disableButton = true; //para desabilitar botão de cadastrar venda
         this._lastButton = 0;
         this._listIDProducts = [];
+        this.chargeSession();
         this.initialize(); 
-        this.chargeSession(); 
     }
 
     initialize()
     {
         this.initButtonsEvents();
+        this.activeButtonSubmit(false); //verifica se tem que ativar o botão
     }
     //metodos get
+    get disableButton()
+    {
+        return this._disableButton;
+    }
+
+    get formVenda()
+    {
+        return this._formVenda;
+    }
+
     get lastButton()
     {
         return this._lastButton;
+    }
+
+    get valueTotal() 
+    {
+        return Utils.formatToFloat(this._valueTotal.innerHTML);
+    }
+
+    get valueReceived() //valor recebido
+    {
+        return Utils.formatToFloat(this._valueReceived.value);
+    }
+
+    get valueThing() //valorTroco
+    {
+        return Utils.formatToFloat(this._valueThing.innerHTML);
+    }
+    //metodos set
+    set disableButton(value)
+    {
+        this._disableButton = value;
+    }
+
+    set formVenda(value)
+    {
+        this._formVenda = value;
     }
 
     set lastButton(value)
@@ -26,21 +66,7 @@ class PurchaseController{
         this._lastButton = value;
     }
 
-    get valueTotal()
-    {
-        return Utils.formatToFloat(this._valueTotal.innerHTML);
-    }
 
-    get valueReceived()
-    {
-        return Utils.formatToFloat(this._valueReceived.value);
-    }
-
-    get valueThing()
-    {
-        return Utils.formatToFloat(this._valueThing.innerHTML);
-    }
-    //metodos set
     set valueTotal(value = 0)
     {
         this._valueTotal.innerHTML = value;
@@ -56,7 +82,7 @@ class PurchaseController{
         this._valueThing.innerHTML = value;
     }
     //metodos em geral
-    initButtonsEvents()
+    initButtonsEvents() //iniciar eventos dos botões
     {
 
         let buttons = document.querySelectorAll("#area-produtos > .produto [type=button]");
@@ -73,8 +99,10 @@ class PurchaseController{
         //iniciar botão do troco
         let buttonThing = document.querySelector("#botao-troco");
         buttonThing.addEventListener("click",event=>{
+
             buttonThing.classList.toggle("active");
             this.calcThing(); //calcular troco
+
         });
 
         //ativar formas de pagamento
@@ -82,7 +110,10 @@ class PurchaseController{
         activebutton.forEach((btn, index)=>{
             btn.addEventListener("click", event=>{
 
-                btn.classList.add("active")
+
+                btn.classList.add("active");
+                this.activeButtonSubmit(false); //ativa o botão submit
+                this.insertPaymentForm(btn.innerHTML); //manda para sessão a forma de pagamento
                 if(this.lastButton == 0){
                     this.lastButton = btn.id;
                 }
@@ -98,13 +129,32 @@ class PurchaseController{
             });
         }); 
 
-        //configurando botão submit
+        this.activeButtonSubmit(); //ativar botão Submit
+    }
+
+    activeButtonSubmit(desativar = true)
+    {
+        //configurando botão submit -->
         let buttonSubmit = document.getElementById("cadastrar-venda");
 
-        buttonSubmit.addEventListener("click", event=>{
-            
-        });
+        if(desativar == true || this.valueTotal <= 0){
+             
+            buttonSubmit.classList.add("disabled");
+            buttonSubmit.disabled = true;
+ 
+        }else{
+ 
+            buttonSubmit.classList.remove("disabled");
+            buttonSubmit.disabled = false;
 
+        }
+ 
+        buttonSubmit.addEventListener("click", event=>{
+
+            sessionStorage.clear(); //limpa a sessão após cadastrar
+
+        });
+        //--->
     }
 
     execButton(btn)
@@ -116,7 +166,7 @@ class PurchaseController{
         this.alterQuant(op, id);
     }
 
-    alterQuant(op, id)
+    alterQuant(op, id) //alternar quantidade de acordo com a opção escolhida
     {
         let qtd = document.querySelectorAll("#area-produtos > .produto [type=number]");
         if(op ==  "plus"){
@@ -132,8 +182,7 @@ class PurchaseController{
                 }
 
             });
-
-            //window.location.href = "/sistemamarmita/plus";
+            
 
         }else if(op == "minus"){
 
@@ -149,14 +198,13 @@ class PurchaseController{
                         this.addListProducts(id, qtd.value);
                     }
                 }
-
             });
-
-            //window.location.href="/sistemamarmita/minus";
+            
+            
         }
     }
 
-    calcValueTotal(id, sum = true){
+    calcValueTotal(id, sum = true){ //Calcular valor total atual
         let price = document.querySelector(`#price-${id}`);
 
         if(sum){
@@ -170,6 +218,8 @@ class PurchaseController{
             this.valueTotal = Utils.formatPrice(subtracao);  
 
         }
+
+        this.activeButtonSubmit(false); //verifica se ativa ou não o botão de cadastrar venda
     }
 
     calcThing()//calcular troco thing = troco
@@ -180,38 +230,38 @@ class PurchaseController{
         if(!this.valueThing) Utils.formatPrice(this.valueThing = 0.00);
     }
 
-    returnID(valueStr)
+    returnID(valueStr) //retornar id
     {
         let id = valueStr.substr(valueStr.length - 1);
         return id;
     }
 
-    returnOP(valueStr)
+    returnOP(valueStr) //returnar opção
     {
         let op = valueStr.substr(0, valueStr.indexOf("-"));
         return op;
     }
     
-    addEventListenerAll(element, events, fn)
+    addEventListenerAll(element, events, fn) //adicionar varios eventos separando por espaço
     {
         events.split(" ").forEach(event=>{
             element.addEventListener(event, fn, false);
         });
     }
 
-    removeLast(id)
+    removeLast(id) //remover do último botão a classse active
     {
         let last = document.getElementById(id);
         last.classList.remove("active");
     }
     //Inicio Metodos de Sessão ------------------------------------>
-    addListProducts(id, qtd)
+    addListProducts(id, qtd) //adiciona ao array para enviar para sessão
     {
         if(this._listIDProducts.length > 0){
             let existe = false;
             for(let i = 0; i < this._listIDProducts.length; i++){
 
-                if(this._listIDProducts[i].idproduct == id){
+                if(this._listIDProducts[i].idproduct == id){ //verifica e se substitui
 
                     this._listIDProducts[i].quantidade = qtd;
                     existe = true;
@@ -230,7 +280,7 @@ class PurchaseController{
         
     }
 
-    insertForSession()
+    insertForSession() //inseri na sessão os dados
     {
         let dataProducts = [];
         
@@ -238,14 +288,48 @@ class PurchaseController{
             
             let json = JSON.parse(sessionStorage.getItem("products"));
 
-           
         }
         dataProducts.push(this._listIDProducts); 
+
         sessionStorage.setItem("products", JSON.stringify(dataProducts));
+
+        this.createInput(JSON.stringify(this._listIDProducts)); //para enviar o JSON via formulário
+    }
+
+    createInput(json) //cria input para enviar para o php via Post
+    {
+
+        if(document.querySelector(".none")){
+            this.formVenda.removeChild(document.body.querySelector(".none"));
+        } 
+        let input = document.createElement("input");
+        input.value = `
+            ${json}
+        `;
+        input.classList.add("none");
+        input.setAttribute("name","json");
+        this.formVenda.appendChild(input);
 
     }
 
-    chargeSession()
+    insertPaymentForm(name)
+    {
+
+        if(document.querySelector("#temp-payment")){
+            this.formVenda.removeChild(document.body.querySelector("#temp-payment"));
+        } 
+        let input = document.createElement("input");
+        input.value = `
+            ${name}
+        `;
+        input.classList.add("none");
+        input.setAttribute("id","temp-payment");
+        input.setAttribute("name","payment");
+        this.formVenda.appendChild(input);
+
+    }
+
+    chargeSession()//carregar sessão
     {
         if(sessionStorage.getItem("products")){
 
@@ -280,7 +364,7 @@ class PurchaseController{
         }
     }
 
-    setCalcValueTotalSession(id, qtd)
+    setCalcValueTotalSession(id, qtd) //calcular valor total da sessão
     {
         let price = document.querySelector(`#price-${id}`);
 
@@ -291,7 +375,7 @@ class PurchaseController{
         this.valueTotal = Utils.formatPrice(operation);  
             
     }
+
     //fim metodos de sessão -------------------->
-    
 
 }
