@@ -8,6 +8,7 @@
     src: url("../fonts/Open_Sans/OpenSans-Light.ttf");
     font-size: 1em;
 }
+
 /*Cabeçalho*/
 header{
     background-color: #D61C4E;
@@ -89,6 +90,9 @@ header #logotipo{
     border-color: #000;
 }
 /*Valor-Total*/
+#valor-total{
+    margin-bottom: 30px;
+}
 #valor-total ins{
     font-family: "OpenSans";
     text-decoration: none;
@@ -103,6 +107,40 @@ header #logotipo{
 #valor-total ins:hover{
     font-weight: bold;
 }
+/***********************Inicio************************/
+#valor-total .valor-personalizado{
+    margin-top: 20px;
+    width: 200px;
+    position: relative;
+    margin: 0 auto;
+    top: 20px;
+    right: 150px;
+}
+
+#valor-total .resultado-personalizado{
+    margin-top: 20px;
+    width: 200px;
+    position: relative;
+    margin: 0 auto;
+    bottom: 30px;
+    left: 150px;
+}
+
+#valor-total .text-personalizar{
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+}
+
+#valor-total .button-personalizar{
+    height: 50px;
+}
+
+#valor-total .button-aplic{
+    position: relative;
+}
+/***********************FIM************************/
+
 /*Forma-pagamentos*/
 #forma-pagamentos .botoes-pagamento{
     width: 400px;
@@ -196,6 +234,9 @@ footer .cinza-escuro .text-red{
     color: #D61C4E;
     font-weight: bold;
 }
+
+
+
 
 
 

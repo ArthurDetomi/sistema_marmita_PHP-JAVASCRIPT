@@ -3,13 +3,16 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta charset="utf-8">
+      
         <link rel="stylesheet" href="/sistemamarmita/res/site/lib/bootstrap/css/bootstrap.min.css"><!--Bootstrap-->
         <link rel="stylesheet" href="/sistemamarmita/res/site/lib/owl.carousel2/dist/assets/owl.carousel.min.css"><!--Carrousel-->
         <link rel="stylesheet" href="/sistemamarmita/res/site/lib/owl.carousel2/dist/assets/owl.theme.default.min.css"><!--Carrousel-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"><!-- Font Awesome -->
+        
 
         <title>Marmitas Adelina</title>
         <link rel="stylesheet" href="/sistemamarmita/res/site/css/style.css">
+        <link rel="stylesheet" href="/sistemamarmita/res/site/css/style-mobile.css">
     </head>
     <body>
         <header><!--Cabeçalho-->

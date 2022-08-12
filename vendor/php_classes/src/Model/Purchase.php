@@ -10,6 +10,11 @@ class Purchase{
     private $vltotal = 0;
     private $paymentMethod = "";
     
+    public function setValuePerso($value)
+    {
+        $this->vltotal = (double)$value;
+    }
+
     public function setPaymentMethod($method)
     {
         $this->paymentMethod = $method;
@@ -34,7 +39,9 @@ class Purchase{
         $product->chargeProduct($idproduct); //carrega o produto
 
         $this->getDescription($product, $qtdVenda); //gera a descrição
+
         $this->sumValueTotal($product, $qtdVenda); //somar valor total da compra
+
     }
 
     private function getDescription(Product $product, $qtdVenda)

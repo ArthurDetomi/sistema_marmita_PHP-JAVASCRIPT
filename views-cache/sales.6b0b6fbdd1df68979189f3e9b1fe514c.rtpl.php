@@ -36,7 +36,7 @@
                     <td><?php echo htmlspecialchars( $value1["idvenda"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo formatDescription($value1["describeVenda"]); ?></td>
                     <td><?php echo htmlspecialchars( $value1["forma_pagamento"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                    <td><?php echo htmlspecialchars( $value1["dt_register"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                    <td><?php echo formatDate($value1["dt_register"]); ?></td>
                     <td>R$ <?php echo htmlspecialchars( $value1["vltotal"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td/>
                     <td>
                       <a href="/sistemamarmita/admin/sales/<?php echo htmlspecialchars( $value1["idvenda"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>

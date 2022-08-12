@@ -13,7 +13,7 @@
                 <div class="col-md-10">
                     <img class="img-thumbnail" src="<?php echo htmlspecialchars( $value1["desphoto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" alt="marmita">
                     <h3><?php echo htmlspecialchars( $value1["desproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?> <?php echo htmlspecialchars( $value1["vlsize"], ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
-                    <ins id="price-<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="price-product"><?php echo htmlspecialchars( $value1["vlprice"], ENT_COMPAT, 'UTF-8', FALSE ); ?></ins>
+                    <ins id="price-<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="price-product"><?php echo formatPrice($value1["vlprice"]); ?></ins>
                 </div>
                 <div class="col-md-2">
                     <div class="botoes">
@@ -41,6 +41,43 @@
                     <hr>
                     <ins id="soma-total">0</ins>
                 </div>
+
+                
+                <div class="row text-center payment"><!--Valor Personalizado-->
+                    <h2>Valor Personalizado - % Desconto</h2>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="valor-personalizado">
+                        <div class="input-group">
+                          <div id="all-perso" class="input-group-btn">
+                            <button id="button-perso" type="button" class="btn button-personalizar btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Desconto %<span class="caret"></span></button>
+                            <ul id="opcoes-perso" class="dropdown-menu">
+                              <li><a class="item-perso">Personalizar Preço<span class="caret"></span></a></li>
+                            </ul>
+                          </div><!-- /btn-group -->
+                          <input id="value-perso" type="number" class="form-control text-personalizar" aria-label="..." placeholder="%">
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+
+                    <div class="resultado-personalizado">
+                        <div class="input-group">
+                          <div class="input-group-btn">
+                            <button type="button" class="btn button-personalizar btn-info"  >Novo Valor</button>
+                          </div><!-- /btn-group -->
+                          <input id="novo-valor-perso" type="number" class="form-control text-personalizar" aria-label="..." placeholder="R$">
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+
+
+                </div>
+
+                <div class="row">
+                    <div class="button-aplic">
+                        <button id="aplicar-alteracoes" class="btn btn-warning">Aplicar Alterações</button>
+                    </div>
+                </div>
+                <!--FIM Valor Personalizado-->
             </div>
          </div><!--Fim Valor Total-->
 

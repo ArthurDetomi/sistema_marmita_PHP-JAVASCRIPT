@@ -36,7 +36,7 @@
                     <td>{$value.idvenda}</td>
                     <td>{function="formatDescription($value.describeVenda)"}</td>
                     <td>{$value.forma_pagamento}</td>
-                    <td>{$value.dt_register}</td>
+                    <td>{function="formatDate($value.dt_register)"}</td>
                     <td>R$ {$value.vltotal}</td/>
                     <td>
                       <a href="/sistemamarmita/admin/sales/{$value.idvenda}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>

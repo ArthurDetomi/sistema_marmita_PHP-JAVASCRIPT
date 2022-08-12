@@ -11,7 +11,7 @@ class PurchaseController{
         this._disableButton = true; //para desabilitar botão de cadastrar venda
         this._lastButton = 0;
         this._listIDProducts = [];
-        this.chargeSession();
+        this.chargeSession(); //carrega a sessão
         this.initialize(); 
     }
 
@@ -104,16 +104,17 @@ class PurchaseController{
             this.calcThing(); //calcular troco
 
         });
-
+        
         //ativar formas de pagamento
         let activebutton = document.querySelectorAll("#forma-pagamentos .botoes-pagamento li > button"); 
         activebutton.forEach((btn, index)=>{
             btn.addEventListener("click", event=>{
 
-
                 btn.classList.add("active");
+                this.setPaymentMethodSession(btn.id);//manda para sessão a forma de pagamento
+                this.disableButton = false;
                 this.activeButtonSubmit(false); //ativa o botão submit
-                this.insertPaymentForm(btn.innerHTML); //manda para sessão a forma de pagamento
+                this.insertPaymentForm(btn.innerHTML);//manda para o formulario para enviar via post
                 if(this.lastButton == 0){
                     this.lastButton = btn.id;
                 }
@@ -129,15 +130,15 @@ class PurchaseController{
             });
         }); 
 
-        this.activeButtonSubmit(); //ativar botão Submit
+        this.setOptionButtonPerso(); //ativar botão do desconto e personalizações
     }
 
-    activeButtonSubmit(desativar = true)
+    activeButtonSubmit(desativar = true) //ativa o botão submit para cadastrar venda
     {
         //configurando botão submit -->
         let buttonSubmit = document.getElementById("cadastrar-venda");
 
-        if(desativar == true || this.valueTotal <= 0){
+        if(desativar == true || this.valueTotal <= 0 || this.disableButton){
              
             buttonSubmit.classList.add("disabled");
             buttonSubmit.disabled = true;
@@ -157,7 +158,7 @@ class PurchaseController{
         //--->
     }
 
-    execButton(btn)
+    execButton(btn) //executar botão + e -
     {
         let op = this.returnOP(btn);
         let id = this.returnID(btn);
@@ -209,12 +210,12 @@ class PurchaseController{
 
         if(sum){
             
-            let soma = Utils.formatToFloat(this.valueTotal) + parseFloat(price.innerHTML);
+            let soma = Utils.formatToFloat(this.valueTotal) + Utils.formatToFloat(price.innerHTML);
             this.valueTotal = Utils.formatPrice(soma);  
             
         }else{
 
-            let subtracao = Utils.formatToFloat(this.valueTotal) - parseFloat(price.innerHTML);
+            let subtracao = Utils.formatToFloat(this.valueTotal) - Utils.formatToFloat(price.innerHTML);
             this.valueTotal = Utils.formatPrice(subtracao);  
 
         }
@@ -230,13 +231,13 @@ class PurchaseController{
         if(!this.valueThing) Utils.formatPrice(this.valueThing = 0.00);
     }
 
-    returnID(valueStr) //retornar id
+    returnID(valueStr) //retornar o id
     {
         let id = valueStr.substr(valueStr.length - 1);
         return id;
     }
 
-    returnOP(valueStr) //returnar opção
+    returnOP(valueStr) //returnar a opção
     {
         let op = valueStr.substr(0, valueStr.indexOf("-"));
         return op;
@@ -280,7 +281,7 @@ class PurchaseController{
         
     }
 
-    insertForSession() //inseri na sessão os dados
+    insertForSession() //inseri na sessão os dados de produto
     {
         let dataProducts = [];
         
@@ -296,7 +297,7 @@ class PurchaseController{
         this.createInput(JSON.stringify(this._listIDProducts)); //para enviar o JSON via formulário
     }
 
-    createInput(json) //cria input para enviar para o php via Post
+    createInput(json) //cria input para enviar para o php via Post, envia o json de produtos
     {
 
         if(document.querySelector(".none")){
@@ -312,7 +313,7 @@ class PurchaseController{
 
     }
 
-    insertPaymentForm(name)
+    insertPaymentForm(name) //inseri a  forma de pagamento no formulario para enviar via post
     {
 
         if(document.querySelector("#temp-payment")){
@@ -362,20 +363,156 @@ class PurchaseController{
 
             });
         }
+
+        if(sessionStorage.getItem("paymentMethod")){
+
+            let buttonPayment = document.getElementById(sessionStorage.getItem("paymentMethod"));
+            buttonPayment.classList.add("active");
+            this.setPaymentMethodSession(buttonPayment.id);
+            this.activeButtonSubmit(false); //ativa o botão submit
+            this.insertPaymentForm(buttonPayment.innerHTML); //manda para sessão a forma de pagamento
+            if(this.lastButton == 0){
+
+                this.lastButton = buttonPayment.id;
+                
+            }
+            if(buttonPayment.id != this.lastButton){ 
+
+                this.removeLast(this.lastButton);
+                this.lastButton = buttonPayment.id;
+
+            }
+
+        }
     }
 
     setCalcValueTotalSession(id, qtd) //calcular valor total da sessão
     {
         let price = document.querySelector(`#price-${id}`);
 
-        let operation = parseFloat(qtd) * parseFloat(price.innerHTML);
+        let operation = Utils.formatToFloat(qtd) * Utils.formatToFloat(price.innerHTML);
 
-        if(this.valueTotal > 0) operation = parseFloat(operation) + Utils.formatToFloat(this.valueTotal);
+        if(this.valueTotal > 0) operation = Utils.formatToFloat(operation) + Utils.formatToFloat(this.valueTotal);
 
         this.valueTotal = Utils.formatPrice(operation);  
             
     }
 
+    setPaymentMethodSession($paymentMethod) //seta o modo de pagamento salvo na sessão
+    {
+        if(sessionStorage.getItem("paymentMethod")){
+
+            sessionStorage.removeItem("paymentMethod");
+
+        }
+
+        sessionStorage.setItem("paymentMethod", $paymentMethod);
+    }
     //fim metodos de sessão -------------------->
+
+    //metodos de desconto, valores persnalidos -------------------------------------------------
+   
+    setOptionButtonPerso()
+    {
+        let buttonPerso = document.querySelector("#button-perso");
+        let valuePerso = document.querySelector("#value-perso");
+        let options = document.querySelectorAll("#opcoes-perso > li a"); 
+        let aplicar = document.querySelector("#aplicar-alteracoes");
+        let newValuePerso = document.querySelector("#novo-valor-perso")
+
+
+        let textaux = 'Personalizar Preço<span class="caret"></span>'; //texto auxiliar para verificar condição, se a pessoa escolher personalizar o valor
+
+        options.forEach(opt=>{
+            opt.addEventListener("click",event=>{
+                
+                let aux = buttonPerso.innerHTML;
+                buttonPerso.innerHTML = opt.innerHTML;
+                opt.innerHTML = aux;
+                if(buttonPerso.innerHTML == textaux){
+
+                    valuePerso.placeholder = "R$";
+                    valuePerso.value = "";
+                    newValuePerso.value = "";
+
+                }else{
+
+                    valuePerso.placeholder = "%";
+                    valuePerso.value = "";
+                    newValuePerso.value = "";
+
+                }
+
+            });
+        });
+
+        aplicar.addEventListener("click", event=>{
+
+            if(buttonPerso.innerHTML == textaux){ //personalizar preço
+
+                if(valuePerso.value != "" && Utils.formatToFloat(valuePerso.value) > 0){
+
+                    newValuePerso.value = valuePerso.value;
+                    this.addValuePersoToForm(Utils.formatToFloat(newValuePerso.value));//adicionar novo valor para mandar via php atraves do formulario
+
+                }else{
+
+                    this.addValuePersoToForm(0, true); //exclui o elemento se existir
+
+                }
+
+            }else{
+
+                if(valuePerso.value != ""){ //dar desconto
+
+                    let desconto = (100 - Utils.formatToFloat(valuePerso.value)) / 100;
+
+                    if(Utils.formatToFloat(this.valueTotal) > 0){
+
+                        newValuePerso.value = Utils.formatToFloat(this.valueTotal) * desconto;
+                        this.addValuePersoToForm(newValuePerso.value);//adicionar novo valor para mandar via php atraves do formulario
+                    
+                    }else{
+
+                        this.addValuePersoToForm(0, true); //excluir o elemento se existir
+
+                    }
+
+                }
+
+            }
+        });
+
+    }
+
+    addValuePersoToForm(value, deleteEl = false) //inseri a  forma de pagamento no formulario para enviar via post
+    {
+        if(!deleteEl){
+            if(document.querySelector("#temp-perso")){
+
+                this.formVenda.removeChild(document.body.querySelector("#temp-perso"));
+
+            } 
+            let input = document.createElement("input");
+            input.value = `
+                ${Utils.formatToFloat(value)}
+            `;
+            input.classList.add("none");
+            input.setAttribute("id","temp-perso");
+            input.setAttribute("name","value-total-perso");
+            this.formVenda.appendChild(input);
+        }else {
+
+            if(document.querySelector("#temp-perso")){
+
+                this.formVenda.removeChild(document.body.querySelector("#temp-perso"));
+
+            } 
+
+        }
+        
+
+    }
+    //---------------------------------------------------------------------------------------->
 
 }
